@@ -6,7 +6,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import javax.annotation.Resource;
 import java.util.List;
 
 @RestController
@@ -15,10 +14,15 @@ public class UserController {
     @Autowired
     private UserMapper userMapper;
 
-    @GetMapping("/user")
-    public String getUser(){
-        List<User> users = userMapper.selectList(null);
+    @GetMapping("/api/write")
+    public String write(User user){
+        userMapper.insert(user);
         return "success";
+    }
+
+    @GetMapping("/api/read")
+    public List<User> getUser(){
+        return userMapper.selectList(null);
     }
 }
 
